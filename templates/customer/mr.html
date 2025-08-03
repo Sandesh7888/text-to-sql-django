@@ -1,0 +1,89 @@
+{% extends 'customer/customerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #667eea, #764ba2);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .chat-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      color: white;
+      padding: 20px;
+    }
+
+    .chat-bubble {
+      padding: 10px 15px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      max-width: 80%;
+    }
+
+    .user-msg {
+      background-color: #f0ad4e;
+      color: #fff;
+      align-self: flex-start;
+    }
+
+    .bot-msg {
+      background-color: #5bc0de;
+      color: #fff;
+      align-self: flex-end;
+    }
+
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 15px 0;
+    }
+
+    .speak-btn {
+      background-color: #ffc107;
+      color: black;
+      font-weight: bold;
+    }
+
+    .speak-btn:hover {
+      background-color: #e0a800;
+      color: white;
+    }
+  </style>
+</head>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="chat-card p-4">
+        <h3 class="text-center mb-4"><i class="bi bi-robot"></i> College Enquiry Chatbot</h3>
+        <form method="POST" action="">
+          {% csrf_token %}
+          <div class="chat-container">
+            <div class="chat-bubble user-msg">
+              <i class="bi bi-person-circle me-2"></i> USER: {{ user }}
+            </div>
+            <div class="chat-bubble bot-msg text-end">
+              BOT: {{ bot }} <i class="bi bi-chat-dots-fill ms-2"></i>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <button class="btn speak-btn"><i class="bi bi-mic-fill"></i> Speak in Marathi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Register</title>
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: url("https://images.squarespace-cdn.com/content/v1/5f972a7c930e1b7910954135/a1b817fd-99ad-4608-9f5b-4ad26d74739b/Publishing_Publisher-Header.jpg?format=2500w") no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .register-card {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      margin: auto;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-floating > label {
+      color: #6c757d;
+    }
+
+    .btn-custom {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    .btn-custom:hover {
+      background-color: #039f65;
+    }
+
+    .message-box {
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .message-box.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .message-box.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .position-relative .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #6c757d;
+    }
+  </style>
+</head>
+
+<body>
+  {% include "text/navbar.html" %}
+
+  <div class="container py-5">
+    <div class="register-card">
+      <h2 class="text-center text-success mb-4"><i class="bi bi-person-plus-fill"></i> Register User</h2>
+
+      <form method="POST" action="/click_user">
+        {% csrf_token %}
+        
+        <div class="form-floating mb-3">
+          <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Username" required>
+          <label for="floatingUsername"><i class="bi bi-person-fill"></i> Username</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="Email" required>
+          <label for="floatingEmail"><i class="bi bi-envelope-fill"></i> Email</label>
+        </div>
+
+        <div class="form-floating mb-4 position-relative">
+          <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+          <label for="floatingPassword"><i class="bi bi-lock-fill"></i> Password</label>
+          <i class="bi bi-eye-fill toggle-password" id="togglePassword"></i>
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-custom btn-lg"><i class="bi bi-check-circle-fill"></i> Register</button>
+        </div>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="message-box {{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS + Password Toggle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordField = document.getElementById("floatingPassword");
+
+    togglePassword.addEventListener("click", function () {
+      const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+      passwordField.setAttribute("type", type);
+      this.classList.toggle("bi-eye-slash-fill");
+    });
+  </script>
+</body>
+</html>
